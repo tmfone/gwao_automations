@@ -6,12 +6,21 @@ function getGmailCard(context){
       .setImageUrl('https://www.gstatic.com/images/icons/material/system/1x/settings_black_48dp.png')
       .setImageStyle(CardService.ImageStyle.CIRCLE);
 
-  let cardSection1TextParagraph1 = CardService.newTextParagraph()
+  
+  let cardSection1SelectionAction = CardService.newSelectionInput()
+      .setFieldName('actionInput')
+      .setTitle(trsl('tActionInput'))
+      .setType(CardService.SelectionInputType.DROPDOWN)
+      .addItem(trsl('tActionDownloadAttachments'), 'tActionDownloadAttachments', true)
+      .setOnChangeAction(CardService.newAction()
+        .setFunctionName("actionInputChange"));
+
+  let cardSection1TextParagraphLabel = CardService.newTextParagraph()
       .setText(trsl('tPickLabel'));
 
   var userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) => a.localeCompare(b, undefined, {sensitivity: 'base'})); 
 
-  let cardSection1SelectionInput1 = CardService.newSelectionInput()
+  let cardSection1SelectionLabel = CardService.newSelectionInput()
       .setFieldName('gmailLabelInput')
       .setTitle(trsl('tGmailLabel'))
       .setType(CardService.SelectionInputType.DROPDOWN)
@@ -20,26 +29,23 @@ function getGmailCard(context){
     
   userLabels.forEach(userLabel => {
     if (userLabel != botLabelName){
-      cardSection1SelectionInput1.addItem(userLabel, userLabel, false);
+      cardSection1SelectionLabel.addItem(userLabel, userLabel, false);
     }
   });
 
-  let cardSection1SelectionInput2 = CardService.newTextInput()
+
+  let cardSection1TextParagraphFolder = CardService.newTextParagraph()
+      .setText(trsl('tPickFolder'));
+
+  let cardSection1SelectionFolder = CardService.newTextInput()
       .setFieldName('folderIdInput')
       .setTitle(trsl('tFolderIdInput'))
       .setHint(trsl('tFolderIdInputHint'))
       .setOnChangeAction(CardService.newAction()
         .setFunctionName("folderIdInputChange"));
 
-  let cardSection1SelectionInput3 = CardService.newSelectionInput()
-      .setFieldName('actionInput')
-      .setTitle(trsl('tActionInput'))
-      .setType(CardService.SelectionInputType.DROPDOWN)
-      .addItem(trsl('tActionDownloadAttachments'), 'tActionDownloadAttachments', true)
-      .setOnChangeAction(CardService.newAction()
-        .setFunctionName("actionInputChange"));
 
-  let cardSection1SelectionInput4 = CardService.newSelectionInput()
+  let cardSection1SelectionFileType = CardService.newSelectionInput()
       .setFieldName('fileTypeInput')
       .setTitle(trsl('tfileTypeInput'))
       .setType(CardService.SelectionInputType.CHECK_BOX)
@@ -64,11 +70,12 @@ function getGmailCard(context){
   let cardSection1Divider1 = CardService.newDivider();
 
   let cardSection1 = CardService.newCardSection()
-      .addWidget(cardSection1TextParagraph1)
-      .addWidget(cardSection1SelectionInput1)
-      .addWidget(cardSection1SelectionInput2)
-      .addWidget(cardSection1SelectionInput3)
-      .addWidget(cardSection1SelectionInput4)
+      .addWidget(cardSection1SelectionAction)
+      .addWidget(cardSection1TextParagraphLabel)
+      .addWidget(cardSection1SelectionLabel)
+      .addWidget(cardSection1TextParagraphFolder)
+      .addWidget(cardSection1SelectionFolder)
+      .addWidget(cardSection1SelectionFileType)
       .addWidget(cardSection1ButtonList1)
       .addWidget(cardSection1Divider1);
 
@@ -119,12 +126,16 @@ function viewActionCard(e){
       .setImageUrl('https://www.gstatic.com/images/icons/material/system/1x/settings_black_48dp.png')
       .setImageStyle(CardService.ImageStyle.CIRCLE);
   
+  var saveToFolder = DriveApp.getFolderById(labelAction.folderId);
   
-  let cardSectionFolderTextParagraph1 = CardService.newTextParagraph()
-      .setText(labelAction.folderId);
+  let cardSectionFolderTextFolderId = CardService.newTextParagraph()
+      .setText(trsl('tId') + ' - ' + labelAction.folderId);
+  let cardSectionFolderTextFolderName = CardService.newTextParagraph()
+      .setText(trsl('tName') + ' - ' + saveToFolder.getName());
   var cardSectionFolder = CardService.newCardSection()
-      .setHeader(trsl('tFolderIdInput'))
-      .addWidget(cardSectionFolderTextParagraph1);
+      .setHeader(trsl('tFolderDetails'))
+      .addWidget(cardSectionFolderTextFolderName)
+      .addWidget(cardSectionFolderTextFolderId);
   
 
   let cardSectionFileTypeTextParagraph1 = CardService.newTextParagraph()

@@ -20,6 +20,14 @@ function trsl(key,formatting) {
 }
 
 const languageMap = {
+  "tId": {
+    "en": "ID",
+    "de": "ID"
+  },
+  "tName": {
+    "en": "Name",
+    "de": "Name"
+  },
   "tArchivingBotTitle": {
     "en": "Archiving Bot (by tmf.one)",
     "de": "Archivierungs Bot (von tmf.one)"
@@ -81,8 +89,8 @@ const languageMap = {
     "en": "Sorry, computer says no!"
   },
   "tTriggerFrequency":{
-    "de": "Intervall (Stunden)!",
-    "en": "Intervall (hours)!"
+    "de": "Intervall (Stunden)",
+    "en": "Intervall (hours)"
   },
   "tTriggerFrequencyHint":{
     "de": "z.B.: 1 - für jede Stunde",
@@ -91,6 +99,10 @@ const languageMap = {
   "tPickLabel":{
     "de": "Wähle ein Gmail Label aus:",
     "en": "Pick a Gmail Label:"
+  },
+  "tPickFolder":{
+    "de": "Gib eine Google Drive Ordner ID ein:",
+    "en": "Enter a Google Drive Folder ID:"
   },
   "tGmailLabel":{
     "de": "Gmail Label",
@@ -105,12 +117,16 @@ const languageMap = {
     "en": "Labels with Actions"
   },
   "tConfigureYourActions":{
-    "de": "Konfiguriere deine Aktionen",
-    "en": "Configure your actions"
+    "de": "Neue Aktion",
+    "en": "New Action"
   },
   "tFolderIdInput":{
     "de": "Google Drive Ordner ID",
     "en": "Google Drive Folder ID"
+  },
+  "tFolderDetails":{
+    "de": "Google Drive Ordner Details",
+    "en": "Google Drive Folder Details"
   },
   "tFolderIdInputHint":{
     "de": "Bsp.: 10balkKoSbIKFaEFqUcwv1aFzzzz",

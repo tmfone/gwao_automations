@@ -123,10 +123,10 @@ function triggerFrequencyChange(e){
   if (e.formInput.triggerFrequency)
   {
     setUserProperty(botTriggerKey, e.formInput.triggerFrequency);
-    setTrigger("process_labels", parseInt(e.formInput.triggerFrequency));
+    setTrigger("processLabels", parseInt(e.formInput.triggerFrequency));
   }
   else{
     deleteUserProperty(botTriggerKey, e.formInput.triggerFrequency);
-    deleteTrigger("process_labels");
+    deleteTrigger("processLabels");
   }
 }
