@@ -6,7 +6,8 @@
     "https://www.googleapis.com/auth/drive.addons.metadata.readonly",
 		"https://www.googleapis.com/auth/drive.readonly",
 		"https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/script.scriptapp"
+    "https://www.googleapis.com/auth/script.scriptapp",
+	"https://www.googleapis.com/auth/script.external_request"
 	],
 	"addOns": {
 		"common": {
