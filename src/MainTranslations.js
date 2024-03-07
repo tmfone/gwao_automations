@@ -146,9 +146,5 @@ const languageMap = {
   'tfileTypes': {
     'de': 'Konfigurierte Dateitypen',
     'en': 'Configured file types'
-  },
-  'tfileTypes': {
-    'de': 'Konfigurierte Dateitypen',
-    'en': 'Configured file types'
   }
 };
