@@ -37,12 +37,22 @@ function processLabels() {
 }
 
 function storeAttachements(m, botLabel, folderId, fileTypes) {
+  const date = m.getDate();
+  const formattedDate =
+    date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, '0') +
+    date.getDate().toString().padStart(2, '0');
+  const senderDomain = String(m.getFrom()).split('@')[1].split('.')[0];
   const saveToFolder = DriveApp.getFolderById(folderId);
   const attachments = m.getAttachments();
   attachments.forEach((a) => {
     if (fileTypes.includes(a.getName().split('.').pop())) {
       // save attachment
-      saveToFolder.createFile(a.copyBlob()).setName(a.getName());
+      // filename format: <date>_<senderDomain>_<originalFilename>
+      saveToFolder
+        .createFile(a.copyBlob())
+        .setName(formattedDate + '_' + senderDomain + '_' + a.getName());
+      // saveToFolder.createFile(a.copyBlob()).setName(a.getName());
     } else {
       // skip attachment
       console.log('Skipped unsupported type: ' + a.getContentType());
