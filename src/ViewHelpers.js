@@ -1,4 +1,5 @@
 /* exported buildErrorCard, buildInfoCard */
+/* global trsl */
 function buildErrorCard(opts) {
   var errorText = opts.errorText;
 
