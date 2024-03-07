@@ -1,8 +1,10 @@
+/* exported deleteTrigger, setTrigger */
+
 function deleteTrigger(functionName) {
   const allTriggers = ScriptApp.getProjectTriggers();
-  allTriggers.forEach(trigger => {
+  allTriggers.forEach((trigger) => {
     console.log(trigger.getHandlerFunction());
-    if(trigger.getHandlerFunction() == functionName){
+    if (trigger.getHandlerFunction() == functionName) {
       ScriptApp.deleteTrigger(trigger);
     }
   });
@@ -11,8 +13,5 @@ function deleteTrigger(functionName) {
 function setTrigger(functionName, hours) {
   deleteTrigger(functionName);
   // Trigger every 6 hours.
-  ScriptApp.newTrigger(functionName)
-      .timeBased()
-      .everyHours(hours)
-      .create();
+  ScriptApp.newTrigger(functionName).timeBased().everyHours(hours).create();
 }
