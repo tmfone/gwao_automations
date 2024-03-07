@@ -3,21 +3,23 @@
 const labelActionMapKey = 'labelActions';
 
 function processLabels() {
-  var botLabelName = getUserProperty(botLabelKey);
-  var botLabel = GmailApp.getUserLabelByName(botLabelName);
+  const botLabelName = getUserProperty(botLabelKey);
+  const botLabel = GmailApp.getUserLabelByName(botLabelName);
   if (!botLabel) {
     console.log('No botLabel set');
   }
-  var processingMap = JSON.parse(getUserProperty(labelActionMapKey));
+  const processingMap = JSON.parse(getUserProperty(labelActionMapKey));
   if (!processingMap) {
     console.log('No processingMap set');
   }
-  var processedMails = 0;
+  let processedMails = 0;
   Object.keys(processingMap).forEach((label) => {
-    var threads = GmailApp.search('label:' + label + ' !label:' + botLabelName);
+    const threads = GmailApp.search(
+      'label:' + label + ' !label:' + botLabelName
+    );
     threads.forEach((t) => {
-      var messageLabels = getLabelArray(t.getLabels());
-      var messages = GmailApp.getMessagesForThread(t);
+      const messageLabels = getLabelArray(t.getLabels());
+      const messages = GmailApp.getMessagesForThread(t);
       messages.forEach((m) => {
         // it's not necessary to check again for label "Bot" but just to be sure
         if (!messageLabels.includes(botLabel.getName())) {
@@ -35,7 +37,7 @@ function processLabels() {
 }
 
 function storeAttachements(m, botLabel, folderId, fileTypes) {
-  var saveToFolder = DriveApp.getFolderById(folderId);
+  const saveToFolder = DriveApp.getFolderById(folderId);
   const attachments = m.getAttachments();
   attachments.forEach((a) => {
     if (fileTypes.includes(a.getName().split('.').pop())) {

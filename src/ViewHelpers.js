@@ -1,7 +1,7 @@
 /* exported buildErrorCard, buildInfoCard */
 /* global trsl */
 function buildErrorCard(opts) {
-  var errorText = opts.errorText;
+  let errorText = opts.errorText;
 
   if (opts.exception && !errorText) {
     errorText = opts.exception.toString();
@@ -11,7 +11,7 @@ function buildErrorCard(opts) {
     errorText = 'No additional information is available.';
   }
 
-  var card = CardService.newCardBuilder();
+  const card = CardService.newCardBuilder();
   card.setHeader(
     CardService.newCardHeader().setTitle('An unexpected error occurred')
   );
@@ -22,7 +22,7 @@ function buildErrorCard(opts) {
   );
 
   if (opts.showStackTrace && opts.exception && opts.exception.stack) {
-    var stack = opts.exception.stack.replace(/\n/g, '<br/>');
+    const stack = opts.exception.stack.replace(/\n/g, '<br/>');
     card.addSection(
       CardService.newCardSection()
         .setHeader('Stack trace')
@@ -34,10 +34,10 @@ function buildErrorCard(opts) {
 }
 
 function buildInfoCard(opts) {
-  var text = opts.text;
-  var title = opts.title ? opts.title : trsl('tInfoTitle');
+  const text = opts.text;
+  const title = opts.title ? opts.title : trsl('tInfoTitle');
 
-  var card = CardService.newCardBuilder().setHeader(
+  const card = CardService.newCardBuilder().setHeader(
     CardService.newCardHeader()
       .setTitle(title)
       .setImageUrl(

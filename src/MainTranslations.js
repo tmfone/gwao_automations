@@ -1,7 +1,7 @@
 /* exported trsl */
 
 function trsl(key, formatting) {
-  var retValue = '';
+  let retValue = '';
   const locale = Session.getActiveUserLocale();
   if (!languageMap[key]) {
     retValue = key;

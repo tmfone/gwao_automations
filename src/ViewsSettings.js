@@ -22,14 +22,14 @@ const botLabelKey = 'BOT_LABEL';
 const botTriggerKey = 'BOT_TRIGGER';
 
 function getSettingsCard() {
-  var userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
+  const userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
     a.localeCompare(b, undefined, { sensitivity: 'base' })
   );
 
-  var botLabelName = getUserProperty(botLabelKey);
-  var botTriggerFrequency = getUserProperty(botTriggerKey);
+  const botLabelName = getUserProperty(botLabelKey);
+  const botTriggerFrequency = getUserProperty(botTriggerKey);
 
-  var botLabelSet = botLabelName && userLabels.includes(botLabelName);
+  const botLabelSet = botLabelName && userLabels.includes(botLabelName);
   const userLabelInput = CardService.newSelectionInput()
     .setType(CardService.SelectionInputType.DROPDOWN)
     .setTitle(trsl('tBotLabel'))
@@ -44,7 +44,7 @@ function getSettingsCard() {
     userLabelInput.addItem(userLabel, userLabel, botLabelName == userLabel);
   });
 
-  var triggerFrequencyInput = CardService.newSelectionInput()
+  const triggerFrequencyInput = CardService.newSelectionInput()
     .setType(CardService.SelectionInputType.DROPDOWN)
     .setTitle(trsl('tTriggerFrequency'))
     .setFieldName('triggerFrequency')
@@ -59,21 +59,21 @@ function getSettingsCard() {
       CardService.newAction().setFunctionName('triggerFrequencyChange')
     );
 
-  var returnToRootAction =
+  const returnToRootAction =
     CardService.newAction().setFunctionName('gotoPreviousCard');
-  var returnToRootButton = CardService.newTextButton()
+  const returnToRootButton = CardService.newTextButton()
     .setText(trsl('tBack'))
     .setOnClickAction(returnToRootAction);
 
-  var cardSection = CardService.newCardSection()
+  const cardSection = CardService.newCardSection()
     .setHeader(trsl('tBasicSettings'))
     .addWidget(userLabelInput)
     .addWidget(triggerFrequencyInput)
     .addWidget(returnToRootButton);
 
-  var triggers = ScriptApp.getProjectTriggers();
+  const triggers = ScriptApp.getProjectTriggers();
   console.log(triggers.length + ' - Trigger(s) installed');
-  var card = CardService.newCardBuilder()
+  const card = CardService.newCardBuilder()
     .setHeader(
       CardService.newCardHeader()
         .setTitle(trsl('tBotSettingsTitle'))
@@ -87,26 +87,26 @@ function getSettingsCard() {
 }
 
 function gotoPreviousCard() {
-  var nav = CardService.newNavigation().popCard();
+  const nav = CardService.newNavigation().popCard();
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
 
 function getSettingsRequiredCard() {
-  var textParagraph = CardService.newTextParagraph().setText(
+  const textParagraph = CardService.newTextParagraph().setText(
     trsl('tOpenSettingsText')
   );
-  var openSettingsAction =
+  const openSettingsAction =
     CardService.newAction().setFunctionName('getSettingsCard');
-  var openSettingsButton = CardService.newTextButton()
+  const openSettingsButton = CardService.newTextButton()
     .setText(trsl('tOpenSettings'))
     .setOnClickAction(openSettingsAction);
 
-  var cardSection = CardService.newCardSection()
+  const cardSection = CardService.newCardSection()
     .addWidget(textParagraph)
     .addWidget(openSettingsButton);
-  var triggers = ScriptApp.getProjectTriggers();
+  const triggers = ScriptApp.getProjectTriggers();
   console.log(triggers.length + ' - Trigger(s) installed');
-  var card = CardService.newCardBuilder()
+  const card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader().setTitle(trsl('tSetupRequired')))
     .addSection(cardSection)
     .build();
@@ -114,7 +114,7 @@ function getSettingsRequiredCard() {
 }
 
 function setupGmail() {
-  var botLabel = GmailApp.getUserLabelByName(botLabelName);
+  const botLabel = GmailApp.getUserLabelByName(botLabelName);
   if (!botLabel) {
     // creating bot label
     console.log("Bot Label doesn't exist - creating now");

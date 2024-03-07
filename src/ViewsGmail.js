@@ -19,7 +19,7 @@
 */
 
 function getGmailCard(context) {
-  var botLabelName = getUserProperty(botLabelKey);
+  const botLabelName = getUserProperty(botLabelKey);
   const cardHeader1 = CardService.newCardHeader()
     .setTitle(trsl('tConfigureYourActions'))
     .setImageUrl(
@@ -44,7 +44,7 @@ function getGmailCard(context) {
     trsl('tPickLabel')
   );
 
-  var userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
+  const userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
     a.localeCompare(b, undefined, { sensitivity: 'base' })
   );
 
@@ -174,7 +174,7 @@ function viewActionCard(e) {
     CardService.newTextParagraph().setText(
       trsl('tName') + ' - ' + saveToFolder.getName()
     );
-  var cardSectionFolder = CardService.newCardSection()
+  const cardSectionFolder = CardService.newCardSection()
     .setHeader(trsl('tFolderDetails'))
     .addWidget(cardSectionFolderTextFolderName)
     .addWidget(cardSectionFolderTextFolderId);
@@ -183,7 +183,7 @@ function viewActionCard(e) {
     CardService.newTextParagraph().setText(
       JSON.stringify(labelAction.fileTypes)
     );
-  var cardSectionFileType = CardService.newCardSection()
+  const cardSectionFileType = CardService.newCardSection()
     .setHeader(trsl('tfileTypes'))
     .addWidget(cardSectionFileTypeTextParagraph1);
 
@@ -208,7 +208,7 @@ function viewActionCard(e) {
     .addButton(backActionButton)
     .addButton(deleteActionButton);
 
-  var cardSection2 = CardService.newCardSection().addWidget(
+  const cardSection2 = CardService.newCardSection().addWidget(
     cardSection2ButtonList1
   );
 
@@ -219,7 +219,7 @@ function viewActionCard(e) {
     .addSection(cardSection2)
     .build();
 
-  var nav = CardService.newNavigation().pushCard(card);
+  const nav = CardService.newNavigation().pushCard(card);
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
 
@@ -229,14 +229,14 @@ function closeActionCard(e) {
     console.log(e);
   }
   if (e.parameters.label) {
-    var labelActions = getUserProperty(labelActionMapKey);
+    let labelActions = getUserProperty(labelActionMapKey);
     if (labelActions) {
       labelActions = JSON.parse(labelActions);
       delete labelActions[e.parameters.label];
       setUserProperty(labelActionMapKey, JSON.stringify(labelActions));
     }
   }
-  var nav = CardService.newNavigation().popCard().updateCard(getGmailCard(e));
+  const nav = CardService.newNavigation().popCard().updateCard(getGmailCard(e));
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
 
@@ -272,7 +272,7 @@ function addAction(e) {
     console.log('function addAction');
     console.log(e);
   }
-  var labelActions = getUserProperty(labelActionMapKey);
+  let labelActions = getUserProperty(labelActionMapKey);
   if (!labelActions) {
     labelActions = {};
   } else {
@@ -283,6 +283,6 @@ function addAction(e) {
     fileTypes: e.formInputs.fileTypeInput
   };
   setUserProperty(labelActionMapKey, JSON.stringify(labelActions));
-  var nav = CardService.newNavigation().updateCard(getGmailCard(e));
+  const nav = CardService.newNavigation().updateCard(getGmailCard(e));
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }

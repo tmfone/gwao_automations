@@ -1,8 +1,9 @@
 /* exported getUserProperty, setUserProperty, deleteUserProperty, getUserProperties, deleteLabelActions */
 
 function getUserProperty(key) {
+  let value;
   try {
-    var value = PropertiesService.getUserProperties().getProperties()[key];
+    value = PropertiesService.getUserProperties().getProperties()[key];
   } catch (err) {
     // TODO (developer) - Handle exception
     console.log('Failed with error %s', err.message);
@@ -30,8 +31,9 @@ function deleteUserProperty(key) {
 
 /* FOR DEBUGGING*/
 function getUserProperties() {
+  let value;
   try {
-    var value = PropertiesService.getUserProperties().getProperties();
+    value = PropertiesService.getUserProperties().getProperties();
     console.log(value);
   } catch (err) {
     // TODO (developer) - Handle exception

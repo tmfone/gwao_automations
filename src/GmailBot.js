@@ -1,5 +1,5 @@
-/* global getLabelArray */
-/* exported processLabels */
+/* OBSOLETE */
+/*
 const botLabelName = 'Bot';
 
 const accountingFolderId = '10balkKoS1rEazbIKFaEFqUcwv1aFbtKW';
@@ -52,3 +52,4 @@ function storeAttachements(m, folderId) {
   m.getThread().addLabel(botLabel);
   return 1;
 }
+*/
