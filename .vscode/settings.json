@@ -1,0 +1,7 @@
+{ 
+    "prettier.ignorePath": ".prettierignore", // Don't run prettier for files listed in .gitignore
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}

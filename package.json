@@ -1,0 +1,35 @@
+{
+  "name": "gwao_automations",
+  "version": "0.0.1",
+  "description": "nodejs окружение линтера ESlint для проектов Google Apps Script",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "demo": "rm src/*.* && cp demo/*.js src/",
+    "lint": "eslint src/",
+    "lint-fix": "eslint --fix src/",
+    "run": "npm run demo && npm run lint && exit 0",
+    "run-fix": "npm run demo && npm run lint-fix && exit 0",
+    "re-run-fix": "npm run lint-fix && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmfone/gwao_automations.git"
+  },
+  "author": "tmf.one",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/tmfone/gwao_automations/issues"
+  },
+  "homepage": "https://github.com/tmfone/gwao_automations#readme",
+  "devDependencies": {
+    "@types/google-apps-script": "1.0.82",
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-googleappsscript": "^1.0.5",
+    "eslint-plugin-prettier": "^5.1.3",
+    "prettier": "^3.2.5",
+    "clasp": "^1.0.0"
+  }
+}
