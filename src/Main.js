@@ -1,27 +1,29 @@
-const debugFlag = true
+/* exported getMain, debugFlag */
+/* global allMandatorySettingsPresent, getSettingsRequiredCard, getDriveCard, getGmailCard, buildErrorCard, trsl */
+const debugFlag = true;
 
 const constMap = {
-  gmail: "gmail",
-  drive: "drive",
-  selMessage: "MESSAGE",
-  selFile: "FILE",
-  selFolder: "FOLDER",
-}
+  gmail: 'gmail',
+  drive: 'drive',
+  selMessage: 'MESSAGE',
+  selFile: 'FILE',
+  selFolder: 'FOLDER'
+};
 
 const defaultError = {
   errorText: trsl('tSorry')
-}
+};
 
-function getMain(e){
-  if (!allMandatorySettingsPresent()){
-    return(getSettingsRequiredCard());
+function getMain(e) {
+  if (!allMandatorySettingsPresent()) {
+    return getSettingsRequiredCard();
   }
-  switch(e.hostApp) {
+  switch (e.hostApp) {
     case constMap.drive:
-      return(getDriveCard(e));
+      return getDriveCard(e);
     case constMap.gmail:
-      return(getGmailCard(e));
+      return getGmailCard(e);
     default:
-      return(buildErrorCard(defaultError));  
+      return buildErrorCard(defaultError);
   }
 }
