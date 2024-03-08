@@ -1,8 +1,9 @@
 /* exported pingMiddleware uploadFileMiddleware*/
-/* global debugInfo */
-const baseURL = 'https://tmf-s-gcrs-apiboa-fplowllkzq-ey.a.run.app';
-const token =
-  '7z29IaxbsYQ40SDQUkuigyJF21VCnKoxRyoDmZRAESle1hVjzJNviVKMbYWUAnRinZsMDUhc0vErzKI95nem6A==';
+/* global   debugInfo 
+            getScriptProperty 
+*/
+const baseURL = getScriptProperty('apiboa_base_url');
+const token = getScriptProperty('apiboa_token');
 
 function pingMiddleware() {
   debugInfo('Start');

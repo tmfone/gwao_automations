@@ -1,4 +1,11 @@
-/* exported getUserProperty, setUserProperty, deleteUserProperty, getUserProperties, deleteLabelActions */
+/* exported 
+      getUserProperty
+      setUserProperty
+      deleteUserProperty
+      getUserProperties
+      deleteLabelActions 
+      getScriptProperty
+*/
 
 function getUserProperty(key) {
   let value;
@@ -27,6 +34,17 @@ function deleteUserProperty(key) {
   } catch (err) {
     console.log('Failed with error %s', err.message);
   }
+}
+
+function getScriptProperty(key) {
+  let value;
+  try {
+    value = PropertiesService.getScriptProperties().getProperties()[key];
+  } catch (err) {
+    // TODO (developer) - Handle exception
+    console.log('Failed with error %s', err.message);
+  }
+  return value;
 }
 
 /* FOR DEBUGGING*/
