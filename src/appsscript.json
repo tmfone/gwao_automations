@@ -36,7 +36,16 @@
 				"openLinkUrlPrefixes": [
 					"https://mail.google.com/"
 				]
-			}
+			},
+      "drive": {
+        "homepageTrigger": {
+          "runFunction": "getMain",
+          "enabled": true
+        },
+        "onItemsSelectedTrigger": {
+          "runFunction": "getMain"
+        }
+      }
 		},
 		"timeZone": "Europe/Vienna",
 		"dependencies": {},
