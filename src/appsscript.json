@@ -1,54 +1,67 @@
 {
-	"oauthScopes": [
-		"https://www.googleapis.com/auth/gmail.addons.execute",
-		"https://www.googleapis.com/auth/gmail.addons.current.message.metadata",
-		"https://www.googleapis.com/auth/gmail.modify",
-		"https://www.googleapis.com/auth/drive.addons.metadata.readonly",
-		"https://www.googleapis.com/auth/drive.readonly",
-		"https://www.googleapis.com/auth/drive",
-		"https://www.googleapis.com/auth/script.scriptapp",
-		"https://www.googleapis.com/auth/script.external_request"
-	],
-	"addOns": {
-		"common": {
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.addons.execute",
+    "https://www.googleapis.com/auth/gmail.addons.current.message.metadata",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/drive.addons.metadata.readonly",
+    "https://www.googleapis.com/auth/drive.readonly",
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/script.scriptapp",
+    "https://www.googleapis.com/auth/script.external_request"
+  ],
+  "addOns": {
+    "common": {
       "homepageTrigger": {
         "runFunction": "getMain",
         "enabled": true
       },
-			"layoutProperties": {
-				"primaryColor": "#2F972B"
-			},
-			"logoUrl": "https://storage.googleapis.com/tmfone-gsuite-app-assets/images/quickbits_logo_48dp.png",
-			"name": "Workspace Bot",
-			"openLinkUrlPrefixes": [
-				"https://mail.google.com/"
-			],
-			"universalActions": [{
-				"label": "Open settings",
-				"runFunction": "getSettingsCard"
-			}]
+      "layoutProperties": {
+        "primaryColor": "#2F972B"
       },
-			"gmail": {
-				"contextualTriggers": [{
-					"unconditional": {},
-					"onTriggerFunction": "getMain"
-				}],
-				"openLinkUrlPrefixes": [
-					"https://mail.google.com/"
-				]
-			},
-      "drive": {
-        "homepageTrigger": {
-          "runFunction": "getMain",
-          "enabled": true
-        },
-        "onItemsSelectedTrigger": {
-          "runFunction": "getMain"
+      "logoUrl": "https://storage.googleapis.com/tmfone-gsuite-app-assets/images/quickbits_logo_48dp.png",
+      "name": "Workspace Bot",
+      "openLinkUrlPrefixes": [
+        "https://mail.google.com/"
+      ],
+      "universalActions": [
+        {
+          "label": "Open settings",
+          "runFunction": "getSettingsCard"
         }
+      ]
+    },
+    "gmail": {
+      "contextualTriggers": [
+        {
+          "unconditional": {},
+          "onTriggerFunction": "getMain"
+        }
+      ],
+      "openLinkUrlPrefixes": [
+        "https://mail.google.com/"
+      ]
+    },
+    "drive": {
+      "homepageTrigger": {
+        "runFunction": "getMain",
+        "enabled": true
+      },
+      "onItemsSelectedTrigger": {
+        "runFunction": "getMain"
       }
-		},
-		"timeZone": "Europe/Vienna",
-		"dependencies": {},
-		"exceptionLogging": "STACKDRIVER",
-		"runtimeVersion": "V8"
+    }
+  },
+  "timeZone": "Europe/Vienna",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "APIBOA",
+        "version": "0",
+        "libraryId": "1mJfT3FxFO_yd6tUbR_ucLZA5Ekub0UsL7lfR8jjMKcU90E_vf82xRrXj",
+        "developmentMode": true
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
 }
