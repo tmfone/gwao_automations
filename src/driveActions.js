@@ -2,7 +2,7 @@
 /* global   botAcctInboxKey 
             botAcctInboxArchiveKey
             getUserProperty
-            uploadFileMiddleware
+            APIBOA
 */
 
 function processAccountingInboxFolder() {
@@ -34,7 +34,13 @@ function processAccountingInboxFolder() {
     }
     // Upload to Accounting Software
     const fileContentBase64 = Utilities.base64Encode(file.getBlob().getBytes());
-    if (uploadFileMiddleware(fileName, file.getMimeType(), fileContentBase64)) {
+    if (
+      APIBOA.v1FinanceDocumentsStageFinDocument(
+        fileName,
+        file.getMimeType(),
+        fileContentBase64
+      )
+    ) {
       file.moveTo(archiveFolder);
     }
   }
