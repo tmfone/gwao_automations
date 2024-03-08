@@ -6,6 +6,7 @@
       getSettingsRequiredCard
       allMandatorySettingsPresent
       botLabelChange
+      folderIdInputChange
 */
 /* global 
       getLabelArray
@@ -20,6 +21,7 @@
 
 const botLabelKey = 'BOT_LABEL';
 const botTriggerKey = 'BOT_TRIGGER';
+const botActInboxKey = 'BOB_ActInbox';
 
 function getSettingsCard() {
   const userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
@@ -28,6 +30,7 @@ function getSettingsCard() {
 
   const botLabelName = getUserProperty(botLabelKey);
   const botTriggerFrequency = getUserProperty(botTriggerKey);
+  const botActInbox = getUserProperty(botActInboxKey);
 
   const botLabelSet = botLabelName && userLabels.includes(botLabelName);
   const userLabelInput = CardService.newSelectionInput()
@@ -59,6 +62,19 @@ function getSettingsCard() {
       CardService.newAction().setFunctionName('triggerFrequencyChange')
     );
 
+  const botActInboxTextParagraph = CardService.newTextParagraph().setText(
+    trsl('tPickFolder')
+  );
+
+  const botActInboxInput = CardService.newTextInput()
+    .setFieldName('folderIdInput')
+    .setTitle(trsl('tFolderIdInput'))
+    .setHint(trsl('tFolderIdInputHint'))
+    .setValue(String(botActInbox))
+    .setOnChangeAction(
+      CardService.newAction().setFunctionName('folderIdInputChange')
+    );
+
   const returnToRootAction =
     CardService.newAction().setFunctionName('gotoPreviousCard');
   const returnToRootButton = CardService.newTextButton()
@@ -69,6 +85,8 @@ function getSettingsCard() {
     .setHeader(trsl('tBasicSettings'))
     .addWidget(userLabelInput)
     .addWidget(triggerFrequencyInput)
+    .addWidget(botActInboxTextParagraph)
+    .addWidget(botActInboxInput)
     .addWidget(returnToRootButton);
 
   const triggers = ScriptApp.getProjectTriggers();
@@ -158,5 +176,13 @@ function triggerFrequencyChange(e) {
   } else {
     deleteUserProperty(botTriggerKey, e.formInput.triggerFrequency);
     deleteTrigger('processLabels');
+  }
+}
+
+function folderIdInputChange(e) {
+  if (e.formInput.folderIdInput) {
+    setUserProperty(botActInboxKey, e.formInput.folderIdInput);
+  } else {
+    deleteUserProperty(botActInboxKey, e.formInput.folderIdInput);
   }
 }

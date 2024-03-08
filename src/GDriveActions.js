@@ -1,6 +1,12 @@
-/* exported renameFiles */
-function renameFiles() {
-  const folder = DriveApp.getFolderById('10balkKoS1rEazbIKFaEFqUcwv1aFbtKW'); // Replace 'folderId' with your folder ID
+/* exported processAccountingInboxFolder */
+/* global   botActInboxKey 
+            getUserProperty
+            uploadFileMiddleware
+*/
+
+function processAccountingInboxFolder() {
+  const botActInbox = getUserProperty(botActInboxKey);
+  const folder = DriveApp.getFolderById(botActInbox);
   const files = folder.getFiles();
 
   while (files.hasNext()) {
@@ -14,6 +20,11 @@ function renameFiles() {
         'yyyyMMdd'
       );
       file.setName(creationDate + '_' + fileName);
+      // Upload to Accounting Software
+      const fileContentBase64 = Utilities.base64Encode(
+        file.getBlob().getBytes()
+      );
+      uploadFileMiddleware(fileName, file.getMimeType(), fileContentBase64);
     }
   }
 }
