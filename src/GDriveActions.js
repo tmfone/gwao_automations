@@ -9,11 +9,12 @@ function processAccountingInboxFolder() {
   const botAcctInbox = getUserProperty(botAcctInboxKey);
   const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
   const folder = DriveApp.getFolderById(botAcctInbox);
+  const archiveFolder = DriveApp.getFolderById(botAcctInboxArchive);
   if (!folder) {
     console.log('No botAcctInbox set');
     return;
   }
-  if (!botAcctInboxArchive) {
+  if (!archiveFolder) {
     console.log('No botAcctInboxArchive set');
     return;
   }
@@ -34,7 +35,7 @@ function processAccountingInboxFolder() {
     // Upload to Accounting Software
     const fileContentBase64 = Utilities.base64Encode(file.getBlob().getBytes());
     if (uploadFileMiddleware(fileName, file.getMimeType(), fileContentBase64)) {
-      file.moveTo(botAcctInboxArchive);
+      file.moveTo(archiveFolder);
     }
   }
 }
