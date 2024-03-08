@@ -29,18 +29,18 @@ function uploadFileMiddleware(fileName, fileType, fileContentBase64) {
   debugInfo('Start');
   debugInfo('Token = ' + token);
   const headers = { 'Authorization': 'Bearer ' + token };
-  const payload = JSON.stringify({
-    'content': fileContentBase64,
+  const data = JSON.stringify({
     'file_name': fileName,
-    'content_type': fileType,
     'document_description': fileName,
-    'skip_ocr': true
+    'content_type': fileType,
+    'skip_ocr': true,
+    'content': fileContentBase64
   });
   const options = {
     'method': 'POST',
     'headers': headers,
     'contentType': 'application/json',
-    'body': payload,
+    'payload': data,
     'muteHttpExceptions': true
   };
   const url = baseURL + '/v1/finance/documents/stage_fin_document';
@@ -48,9 +48,9 @@ function uploadFileMiddleware(fileName, fileType, fileContentBase64) {
   const responseObj = JSON.parse(response.getContentText());
   debugInfo(response.getResponseCode());
   debugInfo(response.getContentText());
-  if (response.getResponseCode() != 200) {
-    return '';
+  if (response.getResponseCode() != 201) {
+    return false;
   }
   debugInfo(responseObj.message);
-  return responseObj.message;
+  return true;
 }

@@ -25,6 +25,10 @@ const languageMap = {
     'de': 'Grundeinstellungen',
     'en': 'Basic Settings'
   },
+  'tAccountInboxSettings': {
+    'de': 'Buchhaltungseingang',
+    'en': 'Accounting Inbox'
+  },
   'tOpenSettings': {
     'de': 'Einstellungen anzeigen',
     'en': 'Open Settings'
@@ -128,5 +132,13 @@ const languageMap = {
   'tfileTypes': {
     'de': 'Konfigurierte Dateitypen',
     'en': 'Configured file types'
+  },
+  'tbotAcctInbox': {
+    'de': 'Buchhaltungseingang',
+    'en': 'Accounting Inbox'
+  },
+  'tbotAcctInboxArchive': {
+    'de': 'Buchhaltungseingang (Archiv)',
+    'en': 'Accounting Inbox (Archive)'
   }
 };

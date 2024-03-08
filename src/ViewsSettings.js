@@ -6,7 +6,8 @@
       getSettingsRequiredCard
       allMandatorySettingsPresent
       botLabelChange
-      folderIdInputChange
+      botAcctInboxInputChange
+      botAcctInboxArchiveInputChange
 */
 /* global 
       getLabelArray
@@ -21,7 +22,8 @@
 
 const botLabelKey = 'BOT_LABEL';
 const botTriggerKey = 'BOT_TRIGGER';
-const botActInboxKey = 'BOB_ActInbox';
+const botAcctInboxKey = 'BOT_ActInbox';
+const botAcctInboxArchiveKey = 'BOT_ActInboxArchive';
 
 function getSettingsCard() {
   const userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
@@ -30,7 +32,8 @@ function getSettingsCard() {
 
   const botLabelName = getUserProperty(botLabelKey);
   const botTriggerFrequency = getUserProperty(botTriggerKey);
-  const botActInbox = getUserProperty(botActInboxKey);
+  const botAcctInbox = getUserProperty(botAcctInboxKey);
+  const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
 
   const botLabelSet = botLabelName && userLabels.includes(botLabelName);
   const userLabelInput = CardService.newSelectionInput()
@@ -62,17 +65,20 @@ function getSettingsCard() {
       CardService.newAction().setFunctionName('triggerFrequencyChange')
     );
 
-  const botActInboxTextParagraph = CardService.newTextParagraph().setText(
-    trsl('tPickFolder')
-  );
-
-  const botActInboxInput = CardService.newTextInput()
-    .setFieldName('folderIdInput')
-    .setTitle(trsl('tFolderIdInput'))
-    .setHint(trsl('tFolderIdInputHint'))
-    .setValue(String(botActInbox))
+  const botAcctInboxInput = CardService.newTextInput()
+    .setFieldName('botAcctInboxInput')
+    .setTitle(trsl('tbotAcctInbox'))
+    .setValue(String(botAcctInbox))
     .setOnChangeAction(
-      CardService.newAction().setFunctionName('folderIdInputChange')
+      CardService.newAction().setFunctionName('botAcctInboxInputChange')
+    );
+
+  const botAcctInboxArchiveInput = CardService.newTextInput()
+    .setFieldName('botAcctInboxArchiveInput')
+    .setTitle(trsl('tbotAcctInboxArchive'))
+    .setValue(String(botAcctInboxArchive))
+    .setOnChangeAction(
+      CardService.newAction().setFunctionName('botAcctInboxArchiveInputChange')
     );
 
   const returnToRootAction =
@@ -80,14 +86,17 @@ function getSettingsCard() {
   const returnToRootButton = CardService.newTextButton()
     .setText(trsl('tBack'))
     .setOnClickAction(returnToRootAction);
-
-  const cardSection = CardService.newCardSection()
+  const cardSectionBasicDivider1 = CardService.newDivider();
+  const cardSectionBasic = CardService.newCardSection()
     .setHeader(trsl('tBasicSettings'))
     .addWidget(userLabelInput)
     .addWidget(triggerFrequencyInput)
-    .addWidget(botActInboxTextParagraph)
-    .addWidget(botActInboxInput)
-    .addWidget(returnToRootButton);
+    .addWidget(cardSectionBasicDivider1)
+    .addWidget(botAcctInboxInput)
+    .addWidget(botAcctInboxArchiveInput);
+
+  const cardSectionControls =
+    CardService.newCardSection().addWidget(returnToRootButton);
 
   const triggers = ScriptApp.getProjectTriggers();
   console.log(triggers.length + ' - Trigger(s) installed');
@@ -99,7 +108,8 @@ function getSettingsCard() {
           'https://www.gstatic.com/images/icons/material/system/1x/smart_toy_black_48dp.png'
         )
     )
-    .addSection(cardSection)
+    .addSection(cardSectionBasic)
+    .addSection(cardSectionControls)
     .build();
   return [card];
 }
@@ -179,10 +189,24 @@ function triggerFrequencyChange(e) {
   }
 }
 
-function folderIdInputChange(e) {
-  if (e.formInput.folderIdInput) {
-    setUserProperty(botActInboxKey, e.formInput.folderIdInput);
+function botAcctInboxInputChange(e) {
+  if (e.formInput.botAcctInboxInput) {
+    setUserProperty(botAcctInboxKey, e.formInput.botAcctInboxInput);
   } else {
-    deleteUserProperty(botActInboxKey, e.formInput.folderIdInput);
+    deleteUserProperty(botAcctInboxKey, e.formInput.botAcctInboxInput);
+  }
+}
+
+function botAcctInboxArchiveInputChange(e) {
+  if (e.formInput.botAcctInboxArchiveInput) {
+    setUserProperty(
+      botAcctInboxArchiveKey,
+      e.formInput.botAcctInboxArchiveInput
+    );
+  } else {
+    deleteUserProperty(
+      botAcctInboxArchiveKey,
+      e.formInput.botAcctInboxArchiveInput
+    );
   }
 }

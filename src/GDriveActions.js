@@ -1,12 +1,22 @@
 /* exported processAccountingInboxFolder */
-/* global   botActInboxKey 
+/* global   botAcctInboxKey 
+            botAcctInboxArchiveKey
             getUserProperty
             uploadFileMiddleware
 */
 
 function processAccountingInboxFolder() {
-  const botActInbox = getUserProperty(botActInboxKey);
-  const folder = DriveApp.getFolderById(botActInbox);
+  const botAcctInbox = getUserProperty(botAcctInboxKey);
+  const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
+  const folder = DriveApp.getFolderById(botAcctInbox);
+  if (!folder) {
+    console.log('No botAcctInbox set');
+    return;
+  }
+  if (!botAcctInboxArchive) {
+    console.log('No botAcctInboxArchive set');
+    return;
+  }
   const files = folder.getFiles();
 
   while (files.hasNext()) {
@@ -20,11 +30,11 @@ function processAccountingInboxFolder() {
         'yyyyMMdd'
       );
       file.setName(creationDate + '_' + fileName);
-      // Upload to Accounting Software
-      const fileContentBase64 = Utilities.base64Encode(
-        file.getBlob().getBytes()
-      );
-      uploadFileMiddleware(fileName, file.getMimeType(), fileContentBase64);
+    }
+    // Upload to Accounting Software
+    const fileContentBase64 = Utilities.base64Encode(file.getBlob().getBytes());
+    if (uploadFileMiddleware(fileName, file.getMimeType(), fileContentBase64)) {
+      file.moveTo(botAcctInboxArchive);
     }
   }
 }
