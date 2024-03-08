@@ -1,5 +1,8 @@
-/* exported debugInfo */
-/* global debugFlag */
+/* exported debugInfo 
+            debugFlag
+*/
+
+const debugFlag = true;
 
 function debugInfo(debugMessage) {
   if (!debugFlag) {

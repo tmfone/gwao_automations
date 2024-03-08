@@ -1,6 +1,11 @@
-/* exported getMain, debugFlag */
-/* global allMandatorySettingsPresent, getSettingsRequiredCard, getDriveCard, getGmailCard, buildErrorCard, trsl */
-const debugFlag = true;
+/* exported getMain */
+/* global allMandatorySettingsPresent
+          getSettingsRequiredCard
+          getDriveCard
+          getGmailCard
+          buildErrorCard
+          trsl 
+*/
 
 const constMap = {
   gmail: 'gmail',
