@@ -102,8 +102,8 @@ const languageMap = {
     'en': 'Labels with Actions'
   },
   'tConfigureYourActions': {
-    'de': 'Neue Aktion',
-    'en': 'New Action'
+    'de': 'Neue Label Aktion',
+    'en': 'New Label Action'
   },
   'tFolderIdInput': {
     'de': 'Google Drive Ordner ID',
