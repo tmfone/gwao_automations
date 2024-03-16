@@ -26,7 +26,7 @@ function processLabels() {
       });
     });
   });
-  console.log(processedMails + ' Mail(s) processed!');
+  debugInfo(processedMails + ' Mail(s) processed!');
 }
 
 function storeAttachements(m, folderId) {
@@ -45,7 +45,7 @@ function storeAttachements(m, folderId) {
       saveToFolder.createFile(a.copyBlob()).setName(a.getName());
     } else {
       // skip attachment
-      console.log('Skipped unsupported type: ' + a.getContentType());
+      debugInfo('Skipped unsupported type: ' + a.getContentType());
     }
   });
   m.markRead();

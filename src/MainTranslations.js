@@ -1,6 +1,6 @@
-/* exported trsl */
 /* global languageMap */
 
+/* exported trsl */
 function trsl(key, formatting) {
   let retValue = '';
   const locale = Session.getActiveUserLocale();

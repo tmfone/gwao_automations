@@ -1,21 +1,22 @@
-/* exported processAccountingInboxFolder */
 /* global   botAcctInboxKey 
             botAcctInboxArchiveKey
             getUserProperty
             APIBOA
+            debugInfo
 */
 
+/* exported processAccountingInboxFolder */
 function processAccountingInboxFolder() {
   const botAcctInbox = getUserProperty(botAcctInboxKey);
   const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
   const folder = DriveApp.getFolderById(botAcctInbox);
   const archiveFolder = DriveApp.getFolderById(botAcctInboxArchive);
   if (!folder) {
-    console.log('No botAcctInbox set');
+    debugInfo('No botAcctInbox set');
     return;
   }
   if (!archiveFolder) {
-    console.log('No botAcctInboxArchive set');
+    debugInfo('No botAcctInboxArchive set');
     return;
   }
   const files = folder.getFiles();

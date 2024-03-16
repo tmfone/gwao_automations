@@ -1,5 +1,6 @@
-/* exported buildErrorCard, buildInfoCard */
 /* global trsl */
+
+/* exported buildErrorCard */
 function buildErrorCard(opts) {
   let errorText = opts.errorText;
 
@@ -33,6 +34,7 @@ function buildErrorCard(opts) {
   return card.build();
 }
 
+/* exported buildInfoCard */
 function buildInfoCard(opts) {
   const text = opts.text;
   const title = opts.title ? opts.title : trsl('tInfoTitle');

@@ -1,23 +1,14 @@
-/* exported 
-      getGmailCard
-      viewActionCard
-      closeActionCard
-      gmailLabelInputChange
-      folderIdInputChange
-      actionInputChange
-      fileTypeInputChange
-      addAction
-*/
 /* global 
       botLabelKey
       getUserProperty
       labelActionMapKey
       trsl
-      debugFlag,
       getLabelArray
       setUserProperty 
+      debugInfo
 */
 
+/* exported getGmailCard */
 function getGmailCard(context) {
   const botLabelName = getUserProperty(botLabelKey);
   const cardHeader1 = CardService.newCardHeader()
@@ -128,7 +119,7 @@ function getGmailCard(context) {
             .setTextButtonStyle(CardService.TextButtonStyle.TEXT)
             .setOnClickAction(
               CardService.newAction()
-                .setFunctionName('viewActionCard')
+                .setFunctionName('getActionCard')
                 .setParameters({ labelAction })
             )
         );
@@ -143,11 +134,10 @@ function getGmailCard(context) {
   return card;
 }
 
-function viewActionCard(e) {
-  if (debugFlag) {
-    console.log('function viewActionCard');
-    console.log(e);
-  }
+/* exported getActionCard */
+function getActionCard(e) {
+  debugInfo('function getActionCard');
+  debugInfo(e);
 
   let labelAction = {};
   if (e.parameters.labelAction) {
@@ -167,17 +157,13 @@ function viewActionCard(e) {
 
   const saveToFolder = DriveApp.getFolderById(labelAction.folderId);
 
-  const cardSectionFolderTextFolderId = CardService.newTextParagraph().setText(
-    trsl('tId') + ' - ' + labelAction.folderId
-  );
-  const cardSectionFolderTextFolderName =
-    CardService.newTextParagraph().setText(
-      trsl('tName') + ' - ' + saveToFolder.getName()
-    );
+  const cardSectionFolderTextFolderName = CardService.newDecoratedText()
+    .setText(saveToFolder.getName())
+    .setBottomLabel(labelAction.folderId);
+
   const cardSectionFolder = CardService.newCardSection()
-    .setHeader(trsl('tFolderDetails'))
-    .addWidget(cardSectionFolderTextFolderName)
-    .addWidget(cardSectionFolderTextFolderId);
+    .setHeader(trsl('tLabelActionFolderDesc'))
+    .addWidget(cardSectionFolderTextFolderName);
 
   const cardSectionFileTypeTextParagraph1 =
     CardService.newTextParagraph().setText(
@@ -222,12 +208,9 @@ function viewActionCard(e) {
   const nav = CardService.newNavigation().pushCard(card);
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
-
+/* exported closeActionCard */
 function closeActionCard(e) {
-  if (debugFlag) {
-    console.log('function closeActionCard');
-    console.log(e);
-  }
+  debugInfo(e);
   if (e.parameters.label) {
     let labelActions = getUserProperty(labelActionMapKey);
     if (labelActions) {
@@ -239,39 +222,29 @@ function closeActionCard(e) {
   const nav = CardService.newNavigation().popCard().updateCard(getGmailCard(e));
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
-
+/* exported gmailLabelInputChange */
 function gmailLabelInputChange(e) {
-  if (debugFlag) {
-    console.log('function gmailLabelInputChange');
-    console.log(e);
-  }
+  debugInfo(e);
 }
 
+/* exported folderIdInputChange */
 function folderIdInputChange(e) {
-  if (debugFlag) {
-    console.log('function folderIdInputChange');
-    console.log(e);
-  }
+  debugInfo(e);
 }
 
+/* exported actionInputChange */
 function actionInputChange(e) {
-  if (debugFlag) {
-    console.log('function actionInputChange');
-    console.log(e);
-  }
+  debugInfo(e);
 }
 
+/* exported fileTypeInputChange */
 function fileTypeInputChange(e) {
-  if (debugFlag) {
-    console.log('function fileTypeInputChange');
-    console.log(e);
-  }
+  debugInfo(e);
 }
+
+/* exported addAction */
 function addAction(e) {
-  if (debugFlag) {
-    console.log('function addAction');
-    console.log(e);
-  }
+  debugInfo(e);
   let labelActions = getUserProperty(labelActionMapKey);
   if (!labelActions) {
     labelActions = {};

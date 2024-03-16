@@ -1,16 +1,21 @@
-/* global getUserProperty, getLabelArray, botLabelKey */
-/* exported processLabels */
+/* global getUserProperty
+          getLabelArray
+          botLabelKey 
+          debugInfo
+*/
+
 const labelActionMapKey = 'labelActions';
 
+/* exported processLabels */
 function processLabels() {
   const botLabelName = getUserProperty(botLabelKey);
   const botLabel = GmailApp.getUserLabelByName(botLabelName);
   if (!botLabel) {
-    console.log('No botLabel set');
+    debugInfo('No botLabel set');
   }
   const processingMap = JSON.parse(getUserProperty(labelActionMapKey));
   if (!processingMap) {
-    console.log('No processingMap set');
+    debugInfo('No processingMap set');
   }
   let processedMails = 0;
   Object.keys(processingMap).forEach((label) => {
@@ -33,7 +38,7 @@ function processLabels() {
       });
     });
   });
-  console.log(processedMails + ' Mail(s) processed!');
+  debugInfo(processedMails + ' Mail(s) processed!');
 }
 
 function storeAttachements(m, botLabel, folderId, fileTypes) {
@@ -55,7 +60,7 @@ function storeAttachements(m, botLabel, folderId, fileTypes) {
       // saveToFolder.createFile(a.copyBlob()).setName(a.getName());
     } else {
       // skip attachment
-      console.log('Skipped unsupported type: ' + a.getContentType());
+      debugInfo('Skipped unsupported type: ' + a.getContentType());
     }
   });
   m.markRead();

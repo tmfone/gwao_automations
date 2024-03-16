@@ -1,4 +1,3 @@
-/* exported getMain */
 /* global allMandatorySettingsPresent
           getSettingsRequiredCard
           getDriveCard
@@ -19,6 +18,7 @@ const defaultError = {
   errorText: trsl('tSorry')
 };
 
+/* exported getMain */
 function getMain(e) {
   if (!allMandatorySettingsPresent()) {
     return getSettingsRequiredCard();

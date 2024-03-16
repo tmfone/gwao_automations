@@ -1,14 +1,3 @@
-/* exported 
-      getSettingsCard 
-      gotoPreviousCard
-      setupGmail
-      triggerFrequencyChange
-      getSettingsRequiredCard
-      allMandatorySettingsPresent
-      botLabelChange
-      botAcctInboxInputChange
-      botAcctInboxArchiveInputChange
-*/
 /* global 
       getLabelArray
       getUserProperty
@@ -18,6 +7,7 @@
       setUserProperty
       deleteTrigger
       setTrigger
+      debugInfo
 */
 
 const botLabelKey = 'BOT_LABEL';
@@ -25,6 +15,7 @@ const botTriggerKey = 'BOT_TRIGGER';
 const botAcctInboxKey = 'BOT_ActInbox';
 const botAcctInboxArchiveKey = 'BOT_ActInboxArchive';
 
+/* exported getSettingsCard */
 function getSettingsCard() {
   const userLabels = getLabelArray(GmailApp.getUserLabels()).sort((a, b) =>
     a.localeCompare(b, undefined, { sensitivity: 'base' })
@@ -99,7 +90,7 @@ function getSettingsCard() {
     CardService.newCardSection().addWidget(returnToRootButton);
 
   const triggers = ScriptApp.getProjectTriggers();
-  console.log(triggers.length + ' - Trigger(s) installed');
+  debugInfo(triggers.length + ' - Trigger(s) installed');
   const card = CardService.newCardBuilder()
     .setHeader(
       CardService.newCardHeader()
@@ -113,12 +104,13 @@ function getSettingsCard() {
     .build();
   return [card];
 }
-
+/* exported gotoPreviousCard */
 function gotoPreviousCard() {
   const nav = CardService.newNavigation().popCard();
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
 
+/* exported getSettingsRequiredCard */
 function getSettingsRequiredCard() {
   const textParagraph = CardService.newTextParagraph().setText(
     trsl('tOpenSettingsText')
@@ -133,7 +125,7 @@ function getSettingsRequiredCard() {
     .addWidget(textParagraph)
     .addWidget(openSettingsButton);
   const triggers = ScriptApp.getProjectTriggers();
-  console.log(triggers.length + ' - Trigger(s) installed');
+  debugInfo(triggers.length + ' - Trigger(s) installed');
   const card = CardService.newCardBuilder()
     .setHeader(CardService.newCardHeader().setTitle(trsl('tSetupRequired')))
     .addSection(cardSection)
@@ -141,15 +133,17 @@ function getSettingsRequiredCard() {
   return [card];
 }
 
+/* exported setupGmail */
 function setupGmail() {
   const botLabel = GmailApp.getUserLabelByName(botLabelName);
   if (!botLabel) {
     // creating bot label
-    console.log("Bot Label doesn't exist - creating now");
+    debugInfo("Bot Label doesn't exist - creating now");
     GmailApp.createLabel(botLabelName);
   }
 }
 
+/* exported allMandatorySettingsPresent */
 function allMandatorySettingsPresent() {
   try {
     // Get the value for the user property 'DISPLAY_UNITS'.
@@ -160,11 +154,12 @@ function allMandatorySettingsPresent() {
     }
   } catch (err) {
     // TODO (developer) - Handle exception
-    console.log('Failed with error %s', err.message);
+    debugInfo('Failed with error %s', err.message);
     return false;
   }
 }
 
+/* exported botLabelChange */
 function botLabelChange(e) {
   if (
     e.formInput.botLabel != 'botLabel_blank' &&
@@ -175,10 +170,12 @@ function botLabelChange(e) {
       const userProperties = PropertiesService.getUserProperties();
       userProperties.setProperty(botLabelKey, e.formInput.botLabel);
     } catch (err) {
-      console.log('Failed with error %s', err.message);
+      debugInfo('Failed with error %s', err.message);
     }
   }
 }
+
+/* exported triggerFrequencyChange */
 function triggerFrequencyChange(e) {
   if (e.formInput.triggerFrequency) {
     setUserProperty(botTriggerKey, e.formInput.triggerFrequency);
@@ -189,6 +186,7 @@ function triggerFrequencyChange(e) {
   }
 }
 
+/* exported botAcctInboxInputChange */
 function botAcctInboxInputChange(e) {
   if (e.formInput.botAcctInboxInput) {
     setUserProperty(botAcctInboxKey, e.formInput.botAcctInboxInput);
@@ -197,6 +195,7 @@ function botAcctInboxInputChange(e) {
   }
 }
 
+/* exported botAcctInboxArchiveInputChange */
 function botAcctInboxArchiveInputChange(e) {
   if (e.formInput.botAcctInboxArchiveInput) {
     setUserProperty(

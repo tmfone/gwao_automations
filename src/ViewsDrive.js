@@ -1,12 +1,9 @@
-/* exported getDriveCard, getFolderSettingsCard, folderLabelChange */
-/* global buildInfoCard, trsl, constMap, debugFlag */
+/* global buildInfoCard, trsl, constMap, debugInfo */
 
+/* exported getDriveCard */
 function getDriveCard(context) {
-  if (debugFlag) {
-    console.log('function getDriveCard');
-    console.log(context);
-    console.log(context.drive);
-  }
+  debugInfo(context);
+  debugInfo(context.drive);
   if (context.drive.selectedItems && context.drive.selectedItems.length > 1) {
     return buildInfoCard({
       text: trsl('tSelectOnlyOne')
@@ -34,8 +31,7 @@ function getFolderSettingsCard(context) {
   });
 }
 
+/* exported folderLabelChange */
 function folderLabelChange(e) {
-  if (debugFlag) {
-    console.log(e);
-  }
+  debugInfo(e);
 }

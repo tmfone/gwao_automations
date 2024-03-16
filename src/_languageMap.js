@@ -1,5 +1,4 @@
 /* exported languageMap */
-
 const languageMap = {
   'tId': {
     'en': 'ID',
@@ -112,6 +111,10 @@ const languageMap = {
   'tFolderDetails': {
     'de': 'Google Drive Ordner Details',
     'en': 'Google Drive Folder Details'
+  },
+  'tLabelActionFolderDesc': {
+    'de': 'Drive Ordner um Anhänge abzulegen:',
+    'en': 'Drive folder to store attachments:'
   },
   'tFolderIdInputHint': {
     'de': 'Bsp.: 10balkKoSbIKFaEFqUcwv1aFzzzz',
