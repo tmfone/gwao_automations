@@ -155,11 +155,17 @@ function getActionCard(e) {
     )
     .setImageStyle(CardService.ImageStyle.CIRCLE);
 
-  const saveToFolder = DriveApp.getFolderById(labelAction.folderId);
-
-  const cardSectionFolderTextFolderName = CardService.newDecoratedText()
-    .setText(saveToFolder.getName())
-    .setBottomLabel(labelAction.folderId);
+  let cardSectionFolderTextFolderName;
+  try {
+    const saveToFolder = DriveApp.getFolderById(labelAction.folderId);
+    cardSectionFolderTextFolderName = CardService.newDecoratedText()
+      .setText(saveToFolder.getName())
+      .setBottomLabel(labelAction.folderId);
+  } catch (e) {
+    cardSectionFolderTextFolderName = CardService.newDecoratedText().setText(
+      trsl('tFolderNotFound')
+    );
+  }
 
   const cardSectionFolder = CardService.newCardSection()
     .setHeader(trsl('tLabelActionFolderDesc'))
