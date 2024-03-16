@@ -6,19 +6,19 @@
 
 const labelActionMapKey = 'labelActions';
 
-/* exported processLabels */
-function processLabels() {
+/* exported processLabelActions */
+function processLabelActions() {
   const botLabelName = getUserProperty(botLabelKey);
   const botLabel = GmailApp.getUserLabelByName(botLabelName);
   if (!botLabel) {
     debugInfo('No botLabel set');
   }
-  const processingMap = JSON.parse(getUserProperty(labelActionMapKey));
-  if (!processingMap) {
-    debugInfo('No processingMap set');
+  const labelProcessingMap = JSON.parse(getUserProperty(labelActionMapKey));
+  if (!labelProcessingMap) {
+    debugInfo('No labelProcessingMap set');
   }
   let processedMails = 0;
-  Object.keys(processingMap).forEach((label) => {
+  Object.keys(labelProcessingMap).forEach((label) => {
     const threads = GmailApp.search(
       'label:' + label + ' !label:' + botLabelName
     );
@@ -31,8 +31,8 @@ function processLabels() {
           processedMails += storeAttachements(
             m,
             botLabel,
-            processingMap[label].folderId,
-            processingMap[label].fileTypes
+            labelProcessingMap[label].folderId,
+            labelProcessingMap[label].fileTypes
           );
         }
       });

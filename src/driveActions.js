@@ -1,14 +1,34 @@
-/* global   botAcctInboxKey 
-            botAcctInboxArchiveKey
-            getUserProperty
-            APIBOA
+/* global   APIBOA
             debugInfo
 */
 
-/* exported processAccountingInboxFolder */
-function processAccountingInboxFolder() {
-  const botAcctInbox = getUserProperty(botAcctInboxKey);
-  const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
+const folderProcessingMap = {
+  '10balkKoS1rEazbIKFaEFqUcwv1aFbtKW': {
+    'executingFolderId': '10balkKoS1rEazbIKFaEFqUcwv1aFbtKW',
+    'archivingFolderId': '14VglHG-LGnIEYL5iViDnUhr82CIzxO-e',
+    'actions': ['stageFinDocument']
+  }
+};
+
+/* exported processFolderActions */
+function processFolderActions() {
+  if (!folderProcessingMap) {
+    debugInfo('No folderProcessingMap set');
+  }
+  Object.keys(folderProcessingMap).forEach((folder) => {
+    debugInfo(folder);
+    folderProcessingMap[folder].actions.forEach((action) => {
+      if (action === 'stageFinDocument') {
+        processAccountingInboxFolderStageFinDocument(
+          folderProcessingMap[folder]
+        );
+      }
+    });
+  });
+}
+function processAccountingInboxFolderStageFinDocument(folderToProcess) {
+  const botAcctInbox = folderToProcess.executingFolderId;
+  const botAcctInboxArchive = folderToProcess.archivingFolderId;
   const folder = DriveApp.getFolderById(botAcctInbox);
   const archiveFolder = DriveApp.getFolderById(botAcctInboxArchive);
   if (!folder) {

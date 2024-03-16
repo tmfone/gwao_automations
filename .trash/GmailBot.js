@@ -5,15 +5,15 @@ const botLabelName = 'Bot';
 const accountingFolderId = '10balkKoS1rEazbIKFaEFqUcwv1aFbtKW';
 const dmarcFolderId = '1Yeg_DsJ0ZYTS85uvBBn46D5NY2Cfxzn3';
 
-const processingMap = {
+const labelProcessingMap = {
   'Finance': accountingFolderId,
   'DMARC': dmarcFolderId
 };
 
-function processLabels() {
+function processLabelActions() {
   var botLabel = GmailApp.getUserLabelByName(botLabelName);
   var processedMails = 0;
-  Object.keys(processingMap).forEach((label) => {
+  Object.keys(labelProcessingMap).forEach((label) => {
     var threads = GmailApp.search('label:' + label + ' !label:' + botLabelName);
     threads.forEach((t) => {
       var messageLabels = getLabelArray(t.getLabels());
@@ -21,7 +21,7 @@ function processLabels() {
       messages.forEach((m) => {
         // it's not necessary to check again for label "Bot" but just to be sure
         if (!messageLabels.includes(botLabel.getName())) {
-          processedMails += storeAttachements(m, processingMap[label]);
+          processedMails += storeAttachements(m, labelProcessingMap[label]);
         }
       });
     });

@@ -12,8 +12,6 @@
 
 const botLabelKey = 'BOT_LABEL';
 const botTriggerKey = 'BOT_TRIGGER';
-const botAcctInboxKey = 'BOT_ActInbox';
-const botAcctInboxArchiveKey = 'BOT_ActInboxArchive';
 
 /* exported getSettingsCard */
 function getSettingsCard() {
@@ -23,8 +21,6 @@ function getSettingsCard() {
 
   const botLabelName = getUserProperty(botLabelKey);
   const botTriggerFrequency = getUserProperty(botTriggerKey);
-  const botAcctInbox = getUserProperty(botAcctInboxKey);
-  const botAcctInboxArchive = getUserProperty(botAcctInboxArchiveKey);
 
   const botLabelSet = botLabelName && userLabels.includes(botLabelName);
   const userLabelInput = CardService.newSelectionInput()
@@ -56,22 +52,6 @@ function getSettingsCard() {
       CardService.newAction().setFunctionName('triggerFrequencyChange')
     );
 
-  const botAcctInboxInput = CardService.newTextInput()
-    .setFieldName('botAcctInboxInput')
-    .setTitle(trsl('tbotAcctInbox'))
-    .setValue(String(botAcctInbox))
-    .setOnChangeAction(
-      CardService.newAction().setFunctionName('botAcctInboxInputChange')
-    );
-
-  const botAcctInboxArchiveInput = CardService.newTextInput()
-    .setFieldName('botAcctInboxArchiveInput')
-    .setTitle(trsl('tbotAcctInboxArchive'))
-    .setValue(String(botAcctInboxArchive))
-    .setOnChangeAction(
-      CardService.newAction().setFunctionName('botAcctInboxArchiveInputChange')
-    );
-
   const returnToRootAction =
     CardService.newAction().setFunctionName('gotoPreviousCard');
   const returnToRootButton = CardService.newTextButton()
@@ -82,9 +62,7 @@ function getSettingsCard() {
     .setHeader(trsl('tBasicSettings'))
     .addWidget(userLabelInput)
     .addWidget(triggerFrequencyInput)
-    .addWidget(cardSectionBasicDivider1)
-    .addWidget(botAcctInboxInput)
-    .addWidget(botAcctInboxArchiveInput);
+    .addWidget(cardSectionBasicDivider1);
 
   const cardSectionControls =
     CardService.newCardSection().addWidget(returnToRootButton);
@@ -179,33 +157,9 @@ function botLabelChange(e) {
 function triggerFrequencyChange(e) {
   if (e.formInput.triggerFrequency) {
     setUserProperty(botTriggerKey, e.formInput.triggerFrequency);
-    setTrigger('processLabels', parseInt(e.formInput.triggerFrequency));
+    setTrigger('processLabelActions', parseInt(e.formInput.triggerFrequency));
   } else {
     deleteUserProperty(botTriggerKey, e.formInput.triggerFrequency);
-    deleteTrigger('processLabels');
-  }
-}
-
-/* exported botAcctInboxInputChange */
-function botAcctInboxInputChange(e) {
-  if (e.formInput.botAcctInboxInput) {
-    setUserProperty(botAcctInboxKey, e.formInput.botAcctInboxInput);
-  } else {
-    deleteUserProperty(botAcctInboxKey, e.formInput.botAcctInboxInput);
-  }
-}
-
-/* exported botAcctInboxArchiveInputChange */
-function botAcctInboxArchiveInputChange(e) {
-  if (e.formInput.botAcctInboxArchiveInput) {
-    setUserProperty(
-      botAcctInboxArchiveKey,
-      e.formInput.botAcctInboxArchiveInput
-    );
-  } else {
-    deleteUserProperty(
-      botAcctInboxArchiveKey,
-      e.formInput.botAcctInboxArchiveInput
-    );
+    deleteTrigger('processLabelActions');
   }
 }
