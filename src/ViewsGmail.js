@@ -10,6 +10,7 @@
 
 /* exported getGmailCard */
 function getGmailCard(context) {
+  debugInfo(context);
   const botLabelName = getUserProperty(botLabelKey);
   const cardHeader1 = CardService.newCardHeader()
     .setTitle(trsl('tConfigureYourActions'))
@@ -136,7 +137,6 @@ function getGmailCard(context) {
 
 /* exported getActionCard */
 function getActionCard(e) {
-  debugInfo('function getActionCard');
   debugInfo(e);
 
   let labelAction = {};
@@ -225,7 +225,9 @@ function closeActionCard(e) {
       setUserProperty(labelActionMapKey, JSON.stringify(labelActions));
     }
   }
-  const nav = CardService.newNavigation().popCard().updateCard(getGmailCard(e));
+  const nav = CardService.newNavigation()
+    .updateCard(getGmailCard(e))
+    .popToRoot();
   return CardService.newActionResponseBuilder().setNavigation(nav).build();
 }
 /* exported gmailLabelInputChange */
