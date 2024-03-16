@@ -10,5 +10,5 @@ function debugInfo(debugMessage) {
     debugMessage = JSON.stringify(debugMessage, 0, 2);
   }
   // eslint-disable-next-line no-caller
-  debugInfo(arguments.callee.caller.name + ': ' + debugMessage);
+  console.log(arguments.callee.caller.name + ': ' + debugMessage);
 }
