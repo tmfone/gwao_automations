@@ -1,4 +1,17 @@
 {
+  "timeZone": "Europe/Vienna",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "APIBOA",
+        "version": "1",
+        "libraryId": "1mJfT3FxFO_yd6tUbR_ucLZA5Ekub0UsL7lfR8jjMKcU90E_vf82xRrXj",
+        "developmentMode": false
+      }
+    ]
+  },
   "oauthScopes": [
     "https://www.googleapis.com/auth/gmail.addons.execute",
     "https://www.googleapis.com/auth/gmail.addons.current.message.metadata",
@@ -50,18 +63,5 @@
         "runFunction": "getMain"
       }
     }
-  },
-  "timeZone": "Europe/Vienna",
-  "dependencies": {
-    "libraries": [
-      {
-        "userSymbol": "APIBOA",
-        "version": "0",
-        "libraryId": "1mJfT3FxFO_yd6tUbR_ucLZA5Ekub0UsL7lfR8jjMKcU90E_vf82xRrXj",
-        "developmentMode": true
-      }
-    ]
-  },
-  "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8"
+  }
 }

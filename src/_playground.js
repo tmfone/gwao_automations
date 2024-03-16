@@ -13,3 +13,6 @@ function listFilters() {
   var filters = JSON.parse(response.getContentText());
   Logger.log(filters);
 }
+function test(){
+  console.log("do something")
+}
