@@ -47,7 +47,18 @@ function storeAttachements(m, botLabel, folderId, fileTypes) {
     date.getFullYear().toString() +
     (date.getMonth() + 1).toString().padStart(2, '0') +
     date.getDate().toString().padStart(2, '0');
-  const senderDomain = String(m.getFrom()).split('@')[1].split('.')[0];
+  let senderDomain = '';
+  if (m.getReplyTo()) {
+    senderDomain = String(m.getReplyTo())
+      .split('@')[1]
+      .split('.')
+      .slice(-2, -1)[0];
+  } else {
+    senderDomain = String(m.getFrom())
+      .split('@')[1]
+      .split('.')
+      .slice(-2, -1)[0];
+  }
   const saveToFolder = DriveApp.getFolderById(folderId);
   const attachments = m.getAttachments();
   attachments.forEach((a) => {

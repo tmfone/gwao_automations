@@ -7,7 +7,6 @@ const token = getScriptProperty('apiboa_token');
 
 function pingMiddleware() {
   debugInfo('Start');
-  debugInfo('Token = ' + token);
   var headers = { 'Authorization': 'Bearer ' + token };
   var options = {
     'headers': headers,
@@ -28,7 +27,6 @@ function pingMiddleware() {
 
 function uploadFileMiddleware(fileName, fileType, fileContentBase64) {
   debugInfo('Start');
-  debugInfo('Token = ' + token);
   const headers = { 'Authorization': 'Bearer ' + token };
   const data = JSON.stringify({
     'file_name': fileName,
