@@ -143,5 +143,13 @@ const languageMap = {
   'tbotAcctInboxArchive': {
     'de': 'Buchhaltungseingang (Archiv)',
     'en': 'Accounting Inbox (Archive)'
+  },
+  'tDriveActions': {
+    'de': 'Verfügbare Aktionen',
+    'en': 'Available Actions'
+  },
+  'tExecuteFolderActions': {
+    'de': 'Order Aktionen ausführen',
+    'en': 'Execute Folder Actions'
   }
 };
