@@ -43,7 +43,7 @@ function processAccountingInboxFolderStageFinDocument(folderToProcess) {
 
   while (files.hasNext()) {
     const file = files.next();
-    const fileName = file.getName();
+    let fileName = file.getName();
 
     if (!isValidDate(fileName.substring(0, 8))) {
       var creationDate = Utilities.formatDate(
@@ -52,6 +52,7 @@ function processAccountingInboxFolderStageFinDocument(folderToProcess) {
         'yyyyMMdd'
       );
       file.setName(creationDate + '_' + fileName);
+      fileName = file.getName();
     }
     // Upload to Accounting Software
     const fileContentBase64 = Utilities.base64Encode(file.getBlob().getBytes());
